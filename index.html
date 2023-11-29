@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Momentum App</title>
   </head>
   <body>
@@ -21,6 +21,9 @@
       <button>Log In</button>
     </form>
 
+    <!-- 시간 text를 넣을 element -->
+    <h2 id="clock"></h2>
+
     <!--  [ Element를 동적으로 화면에 표시하는 방법 ]
           1. CSS에 'display: none;' css를 적용시키는 class selector 정의
           2. 최초에 숨겨야 하는 element에 해당 class name 추가
@@ -29,7 +32,16 @@
      -->
     <h1 id="greeting" class="hidden"></h1>
 
+    <div id="quote">
+      <span></span>
+      <span></span>
+    </div>
+
     <!-- <a href="https://nomadcoders.co">GO to courses</a> -->
-    <script src="login.js"></script>
+
+    <script src="js/login.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/quotes.js"></script>
+    <script src="js/background.js"></script>
   </body>
 </html>
