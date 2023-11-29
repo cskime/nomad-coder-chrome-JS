@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Momentum App</title>
+  </head>
+  <body>
+    <!-- input의 유효성 검사를 실행하기 위해 form 사용
+         form 안에서 button action은 submit으로 동작
+         submit은 click 뿐만 아니라 enter로도 동작함
+    -->
+    <form id="login-form" class="hidden">
+      <input
+        required
+        maxlength="15"
+        type="text"
+        placeholder="What is your name?"
+      />
+      <button>Log In</button>
+    </form>
+
+    <!--  [ Element를 동적으로 화면에 표시하는 방법 ]
+          1. CSS에 'display: none;' css를 적용시키는 class selector 정의
+          2. 최초에 숨겨야 하는 element에 해당 class name 추가
+          3. Event 발생 시 JS에서 숨겨야 하는 element에 해당 class name 추가
+          4. Event 발생 시 JS에서 보여줘야 하는 element에서 해당 class name 제거
+     -->
+    <h1 id="greeting" class="hidden"></h1>
+
+    <!-- <a href="https://nomadcoders.co">GO to courses</a> -->
+    <script src="login.js"></script>
+  </body>
+</html>

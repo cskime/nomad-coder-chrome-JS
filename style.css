@@ -1,0 +1,4 @@
+/* 동적으로 숨기려고 하는 element에 이 class name을 넣으면 된다. */
+.hidden {
+  display: none;
+}
