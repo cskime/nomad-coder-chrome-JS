@@ -4,16 +4,25 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  transition: opacity linear 0.8s;
 }
 
 #todo-list {
-  width: 90%;
+  width: 80%;
 }
 
+@keyframes add {
+  to {
+    opacity: 1;
+  }
+}
 .todo-item {
+  padding: 4px 0px;
   display: flex;
   align-items: center;
   gap: 8px;
+  opacity: 0;
+  animation: add 0.5s linear forwards;
 }
 
 .todo-item__checkbox {

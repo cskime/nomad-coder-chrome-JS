@@ -3,6 +3,7 @@
 const nameContainer = document.getElementById("name-container");
 const nameInput = document.querySelector("#name-container input");
 const greeting = document.getElementById("greeting");
+const toDoContainer = document.getElementById("todo-container");
 const toDoInput = document.querySelector("#todo-container input");
 const toDoList = document.getElementById("todo-list");
 
@@ -51,6 +52,10 @@ function showGreeting(name) {
 }
 
 /* To do */
+
+function showToDoList() {
+  toDoContainer.classList.remove(HIDDEN_CLASS_NAME);
+}
 
 function loadToDos() {
   const savedToDo = localStorage.getItem(TODO_KEY);
@@ -113,6 +118,7 @@ if (username === null) {
   showNameInput(true);
 } else {
   showGreeting(username);
+  showToDoList();
   isLogin = true;
   loadToDos();
 }
@@ -127,6 +133,7 @@ function login() {
   showNameInput(false);
   nameContainer.addEventListener("transitionend", () => {
     showGreeting(username);
+    setInterval(showToDoList, 500);
     localStorage.setItem(USERNAME_KEY, username);
     isLogin = true;
   });
