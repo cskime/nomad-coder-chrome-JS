@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
 @import "reset.css";
 
 body {
@@ -5,4 +7,29 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Open Sans", sans-serif;
+  color: whitesmoke;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 48px;
+}
+
+#info-container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#clock {
+  font-size: 160px;
+  font-weight: 600;
 }
