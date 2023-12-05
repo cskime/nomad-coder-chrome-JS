@@ -8,10 +8,18 @@ const toDoList = document.getElementById("todo-list");
 
 const HIDDEN_CLASS_NAME = "hidden";
 const USERNAME_KEY = "name";
+const TODO_KEY = "todo";
 
 /* Variable */
 
 let isLogin = false;
+let toDos = [];
+
+/* Storage */
+
+function saveToDos() {
+  localStorage.setItem(TODO_KEY, JSON.stringify(toDos));
+}
 
 /* Name */
 
@@ -44,23 +52,58 @@ function showGreeting(name) {
 
 /* To do */
 
-function addToDoItem(item) {
-  const toDoItem = document.createElement("li");
-  toDoItem.className = "todo-item";
+function loadToDos() {
+  const savedToDo = localStorage.getItem(TODO_KEY);
+  if (savedToDo) {
+    const parsedToDo = JSON.parse(savedToDo);
+    parsedToDo.forEach((todo) => {
+      addToDo(todo);
+    });
+    toDos = parsedToDo;
+  }
+}
+
+function updateDone(id) {
+  const index = toDos.findIndex((element) => {
+    return element.id === id;
+  });
+  const isDone = toDos[index].isDone;
+  toDos[index].isDone = !isDone;
+  saveToDos();
+}
+
+function addToDo(todo) {
+  toDos.push(todo);
+  saveToDos();
+
+  const TODO_ITEM_TEXT_DONE_CLASSNAME = "todo-item__text--done";
+
+  const li = document.createElement("li");
+  li.id = todo.id;
+  li.className = "todo-item";
 
   const button = document.createElement("button");
   button.className = "todo-item__checkbox";
+  button.innerText = todo.isDone ? "✓" : "";
   button.addEventListener("click", (event) => {
-    const h3 = event.target.parentNode.childNodes[1];
-    h3.classList.toggle("todo-item__text--done");
+    const li = event.target.parentNode;
+    updateDone(parseInt(li.id));
+
+    button.innerText = todo.isDone ? "✓" : "";
+
+    const h3 = li.childNodes[1];
+    h3.classList.toggle(TODO_ITEM_TEXT_DONE_CLASSNAME);
   });
-  toDoItem.appendChild(button);
+  li.appendChild(button);
 
-  const span = document.createElement("h3");
-  span.innerText = item;
-  toDoItem.appendChild(span);
+  const h3 = document.createElement("h3");
+  h3.innerText = todo.text;
+  if (todo.isDone) {
+    h3.classList.add(TODO_ITEM_TEXT_DONE_CLASSNAME);
+  }
+  li.appendChild(h3);
 
-  toDoList.appendChild(toDoItem);
+  toDoList.appendChild(li);
 }
 
 /* main */
@@ -71,6 +114,7 @@ if (username === null) {
 } else {
   showGreeting(username);
   isLogin = true;
+  loadToDos();
 }
 
 function login() {
@@ -94,7 +138,12 @@ document.addEventListener("keypress", (event) => {
   }
 
   if (isLogin) {
-    addToDoItem(toDoInput.value);
+    const newToDo = {
+      id: Date.now(),
+      text: toDoInput.value,
+      isDone: false,
+    };
+    addToDo(newToDo);
     toDoInput.value = "";
   } else {
     login();

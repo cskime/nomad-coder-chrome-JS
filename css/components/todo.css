@@ -23,6 +23,7 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  text-align: center;
 }
 .todo-item__checkbox:active {
   opacity: 0.5;
