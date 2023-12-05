@@ -10,4 +10,3 @@ const choosenImage = images[Math.floor(Math.random() * images.length)];
 const backgroundImage = document.createElement("img");
 backgroundImage.src = `img/${choosenImage}`;
 document.body.appendChild(backgroundImage);
-document.body.prepend;
