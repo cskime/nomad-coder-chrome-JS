@@ -1,49 +1,19 @@
 /* Constant */
 
-const container = document.getElementById("info-container");
 const nameContainer = document.getElementById("name-container");
 const nameInput = document.querySelector("#name-container input");
 const greeting = document.getElementById("greeting");
+const toDoInput = document.querySelector("#todo-container input");
+const toDoList = document.getElementById("todo-list");
 
 const HIDDEN_CLASS_NAME = "hidden";
 const USERNAME_KEY = "name";
 
-/* Random */
+/* Variable */
 
-function randomInt(range) {
-  return Math.floor(Math.random() * range);
-}
+let isLogin = false;
 
-function randomBackgroundImage() {
-  const images = ["0.jpg", "1.jpg", "2.jpg"];
-  const image = images[randomInt(3)];
-  return `url(img/${image})`;
-}
-
-/* Background */
-
-document.body.style.backgroundImage = randomBackgroundImage();
-
-/* Clock */
-
-const clock = document.getElementById("clock");
-
-function padZero(number) {
-  return String(number).padStart(2, "0");
-}
-function currentTimeString() {
-  const date = new Date();
-  const hour = padZero(date.getHours());
-  const minute = padZero(date.getMinutes());
-  return `${hour}:${minute}`;
-}
-function updateClock() {
-  clock.innerText = currentTimeString();
-}
-updateClock();
-setInterval(updateClock, 1000);
-
-/* Name & Greeting */
+/* Name */
 
 function showNameInput(show) {
   if (show) {
@@ -52,6 +22,8 @@ function showNameInput(show) {
     nameContainer.classList.add(HIDDEN_CLASS_NAME);
   }
 }
+
+/* Greeting */
 
 function showGreeting(name) {
   const date = new Date();
@@ -70,27 +42,61 @@ function showGreeting(name) {
   greeting.classList.remove(HIDDEN_CLASS_NAME);
 }
 
+/* To do */
+
+function addToDoItem(item) {
+  const toDoItem = document.createElement("li");
+  toDoItem.className = "todo-item";
+
+  const button = document.createElement("button");
+  button.className = "todo-item__checkbox";
+  button.addEventListener("click", (event) => {
+    const h3 = event.target.parentNode.childNodes[1];
+    h3.classList.toggle("todo-item__text--done");
+  });
+  toDoItem.appendChild(button);
+
+  const span = document.createElement("h3");
+  span.innerText = item;
+  toDoItem.appendChild(span);
+
+  toDoList.appendChild(toDoItem);
+}
+
+/* main */
+
 const username = localStorage.getItem(USERNAME_KEY);
 if (username === null) {
   showNameInput(true);
 } else {
   showGreeting(username);
+  isLogin = true;
 }
 
-window.addEventListener("keypress", (event) => {
-  const pressed = event.key;
-  if (pressed !== "Enter") {
-    return;
-  }
-
+function login() {
   const username = nameInput.value;
   if (username === "") {
     return;
   }
 
+  nameInput.value = "";
   showNameInput(false);
-  container.addEventListener("transitionend", () => {
+  nameContainer.addEventListener("transitionend", () => {
     showGreeting(username);
     localStorage.setItem(USERNAME_KEY, username);
+    isLogin = true;
   });
+}
+
+document.addEventListener("keypress", (event) => {
+  if (event.key !== "Enter") {
+    return;
+  }
+
+  if (isLogin) {
+    addToDoItem(toDoInput.value);
+    toDoInput.value = "";
+  } else {
+    login();
+  }
 });

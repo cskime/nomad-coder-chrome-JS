@@ -3,6 +3,7 @@
 @import "reset.css";
 @import "components/hidden.css";
 @import "components/text-input.css";
+@import "components/todo.css";
 
 body {
   height: 100vh;
@@ -20,6 +21,11 @@ body {
 
 h2 {
   font-size: 48px;
+}
+
+h3 {
+  font-size: 36px;
+  font-weight: 500;
 }
 
 #info-container {
