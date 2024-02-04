@@ -28,6 +28,8 @@
 #todo-list {
   width: 90%;
   overflow-y: scroll;
+  scrollbar-width: 10px;
+  scrollbar-color: whitesmoke rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 4px;
