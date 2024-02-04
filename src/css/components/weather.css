@@ -1,0 +1,11 @@
+#weather-container {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+}
+
+#weather {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

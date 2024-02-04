@@ -4,6 +4,7 @@
 @import "components/hidden.css";
 @import "components/text-input.css";
 @import "components/todo.css";
+@import "components/weather.css";
 
 :root {
   --transition-hidden: opacity linear 0.8s;
