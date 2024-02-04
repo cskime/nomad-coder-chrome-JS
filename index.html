@@ -9,11 +9,13 @@
   <body>
     <div id="info-container">
       <h1 id="clock">00:00</h1>
-      <div id="name-container" class="hidden">
-        <h2>What's your name?</h2>
-        <input type="text" class="text-input text-input--center" />
+      <div id="name-container">
+        <div id="asking" class="hidden">
+          <h2>What's your name?</h2>
+          <input type="text" class="text-input text-input--center" />
+        </div>
+        <h2 id="greeting" class="hidden"></h2>
       </div>
-      <h2 id="greeting" class="hidden"></h2>
       <div id="todo-container" class="hidden">
         <h3>What's your goal today?</h3>
         <input type="text" class="text-input text-input--center" />

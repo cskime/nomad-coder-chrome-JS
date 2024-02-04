@@ -1,11 +1,9 @@
-/* Constant */
-
-const nameContainer = document.getElementById("name-container");
-const nameInput = document.querySelector("#name-container input");
-const greeting = document.getElementById("greeting");
-const toDoContainer = document.getElementById("todo-container");
-const toDoInput = document.querySelector("#todo-container input");
-const toDoList = document.getElementById("todo-list");
+const $asking = document.getElementById("asking");
+const $greeting = document.getElementById("greeting");
+const $nameInput = $asking.querySelector("input");
+const $toDoContainer = document.getElementById("todo-container");
+const $toDoInput = $toDoContainer.querySelector("input");
+const $toDoList = document.getElementById("todo-list");
 
 const HIDDEN_CLASS_NAME = "hidden";
 const USERNAME_KEY = "name";
@@ -24,37 +22,37 @@ function saveToDos() {
 
 /* Name */
 
-function showNameInput(show) {
+function showAsking(show, callback) {
   if (show) {
-    nameContainer.classList.remove(HIDDEN_CLASS_NAME);
+    $asking.classList.remove(HIDDEN_CLASS_NAME);
   } else {
-    nameContainer.classList.add(HIDDEN_CLASS_NAME);
+    $asking.classList.add(HIDDEN_CLASS_NAME);
   }
+  $asking.addEventListener("transitionend", callback);
 }
 
-/* Greeting */
-
-function showGreeting(name) {
+function showGreeting(name, callback) {
   const date = new Date();
   const hour = date.getHours();
 
   if (hour < 6) {
-    greeting.innerText = `Good night, ${name}.`;
+    $greeting.innerText = `Good night, ${name}.`;
   } else if (hour < 12) {
-    greeting.innerText = `Good morning, ${name}.`;
+    $greeting.innerText = `Good morning, ${name}.`;
   } else if (hour < 18) {
-    greeting.innerText = `Good afternoon, ${name}.`;
+    $greeting.innerText = `Good afternoon, ${name}.`;
   } else {
-    greeting.innerText = `Good evening, ${name}.`;
+    $greeting.innerText = `Good evening, ${name}.`;
   }
 
-  greeting.classList.remove(HIDDEN_CLASS_NAME);
+  $greeting.classList.remove(HIDDEN_CLASS_NAME);
+  $greeting.addEventListener("transitionend", callback);
 }
 
 /* To do */
 
 function showToDoList() {
-  toDoContainer.classList.remove(HIDDEN_CLASS_NAME);
+  $toDoContainer.classList.remove(HIDDEN_CLASS_NAME);
 }
 
 function loadToDos() {
@@ -77,10 +75,7 @@ function updateDone(id) {
   saveToDos();
 }
 
-function addToDo(todo) {
-  toDos.push(todo);
-  saveToDos();
-
+function addToDoItem(todo) {
   const TODO_ITEM_TEXT_DONE_CLASSNAME = "todo-item__text--done";
 
   const li = document.createElement("li");
@@ -108,51 +103,62 @@ function addToDo(todo) {
   }
   li.appendChild(h3);
 
-  toDoList.appendChild(li);
+  $toDoList.appendChild(li);
+}
+
+function addToDo(todo) {
+  toDos.push(todo);
+  saveToDos();
+  addToDoItem(todo);
 }
 
 /* main */
 
-const username = localStorage.getItem(USERNAME_KEY);
-if (username === null) {
-  showNameInput(true);
-} else {
-  showGreeting(username);
-  showToDoList();
-  isLogin = true;
-  loadToDos();
-}
-
 function login() {
-  const username = nameInput.value;
+  const username = $nameInput.value;
   if (username === "") {
     return;
   }
 
-  nameInput.value = "";
-  showNameInput(false);
-  nameContainer.addEventListener("transitionend", () => {
-    showGreeting(username);
-    setInterval(showToDoList, 500);
-    localStorage.setItem(USERNAME_KEY, username);
-    isLogin = true;
+  $nameInput.value = "";
+  showAsking(false, () => {
+    showGreeting(username, () => {
+      showToDoList();
+      localStorage.setItem(USERNAME_KEY, username);
+      isLogin = true;
+    });
   });
 }
+
+addEventListener("load", () => {
+  const username = localStorage.getItem(USERNAME_KEY);
+  if (!username) {
+    showAsking(true);
+    return;
+  }
+
+  showGreeting(username, () => {
+    showToDoList();
+    isLogin = true;
+    loadToDos();
+  });
+});
 
 document.addEventListener("keypress", (event) => {
   if (event.key !== "Enter") {
     return;
   }
 
-  if (isLogin) {
-    const newToDo = {
-      id: Date.now(),
-      text: toDoInput.value,
-      isDone: false,
-    };
-    addToDo(newToDo);
-    toDoInput.value = "";
-  } else {
+  if (!isLogin) {
     login();
+    return;
   }
+
+  const newToDo = {
+    id: Date.now(),
+    text: $toDoInput.value,
+    isDone: false,
+  };
+  addToDo(newToDo);
+  $toDoInput.value = "";
 });
