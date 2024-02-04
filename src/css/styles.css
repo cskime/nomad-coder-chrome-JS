@@ -60,3 +60,19 @@ body {
   position: absolute;
   transition: var(--transition-hidden);
 }
+
+@media screen and (max-width: 768px) {
+  #clock {
+    font-size: 96px;
+  }
+
+  #name-container h2 {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-height: 550px) {
+  #clock {
+    display: none;
+  }
+}

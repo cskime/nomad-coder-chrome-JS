@@ -1,5 +1,6 @@
 #todo-container {
   --font-size: 36px;
+  --font-size-small: 28px;
 
   height: 60%;
   display: flex;
@@ -61,4 +62,16 @@
 
 .todo-item__text--done {
   text-decoration: line-through;
+}
+
+@media screen and (max-width: 768px) {
+  #todo-container h3 {
+    font-size: var(--font-size-small);
+  }
+  #todo-container input {
+    font-size: var(--font-size-small);
+  }
+  .todo-item {
+    font-size: var(--font-size-small);
+  }
 }
