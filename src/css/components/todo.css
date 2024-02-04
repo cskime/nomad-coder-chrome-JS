@@ -1,14 +1,35 @@
 #todo-container {
-  margin-top: 100px;
+  --font-size: 36px;
+
+  height: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   transition: opacity linear 0.8s;
 }
+#todo-container h3 {
+  font-size: var(--font-size);
+  font-weight: 500;
+}
+#todo-container > div {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+#todo-container input {
+  font-size: var(--font-size);
+  font-weight: 500;
+}
 
 #todo-list {
-  width: 80%;
+  width: 90%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 @keyframes add {
@@ -17,12 +38,12 @@
   }
 }
 .todo-item {
-  padding: 4px 0px;
   display: flex;
   align-items: center;
   gap: 8px;
   opacity: 0;
   animation: add 0.5s linear forwards;
+  font-size: var(--font-size);
 }
 
 .todo-item__checkbox {

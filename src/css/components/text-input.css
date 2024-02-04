@@ -1,9 +1,6 @@
-.text-input {
+input[type="text"] {
   all: unset;
   border-bottom: 2px solid whitesmoke;
   font-size: 40px;
-}
-
-.text-input--center {
   text-align: center;
 }
