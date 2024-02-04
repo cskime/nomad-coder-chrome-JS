@@ -12,7 +12,7 @@ function success(position) {
     .then((response) => response.json())
     .then((data) => {
       $weatherImage.src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
-      $weatherTemp.innerText = data.main.temp;
+      $weatherTemp.innerText = data.main.temp.toFixed(1);
       $location.innerText = data.name;
     });
 }

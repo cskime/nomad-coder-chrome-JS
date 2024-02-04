@@ -8,4 +8,27 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  font-size: 24px;
+}
+
+#weather img {
+  width: 64px;
+  height: 64px;
+}
+
+#location {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  #weather {
+    font-size: 20px;
+  }
+  #weather img {
+    width: 56px;
+    height: 56px;
+  }
+  #location {
+    font-size: 20px;
+  }
 }
