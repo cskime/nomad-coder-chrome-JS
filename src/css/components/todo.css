@@ -26,6 +26,7 @@
 }
 
 #todo-list {
+  margin-top: 16px;
   width: 90%;
   overflow-y: scroll;
   scrollbar-width: 10px;
